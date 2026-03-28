@@ -1,36 +1,37 @@
 import ScrollReveal from './ScrollReveal';
-// 1. IMPORT YOUR LOCAL IMAGES (Match your sidebar names exactly!)
-import heroImg from '../assets/hero.png'; 
 
 const projects = [
   { 
+    id: "01",
     title: "Privy Direct", 
-    desc: "A premium business platform focused on direct connectivity and professional networking.", 
+    desc: "A high-performance connectivity hub for professional networking and direct B2B communication.", 
     tech: ["PHP", "MySQL", "JavaScript", "Tailwind"], 
     link: "https://privydirect.in/",
-    // Using your local image instead of a placeholder
-    image: heroImg 
+    glow: "group-hover:shadow-blue-500/20"
   },
   { 
+    id: "02",
     title: "Swarnalagna", 
-    desc: "A specialized matrimony platform featuring advanced search and secure profile management.", 
+    desc: "A secure, architecture-driven matrimony platform with advanced filtering and profile matching.", 
     tech: ["PHP", "MySQL", "Architecture", "CSS3"], 
     link: "https://swarnalagna.com/",
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800&h=500"
+    glow: "group-hover:shadow-purple-500/20"
   },
   { 
+    id: "03",
     title: "AG Samooham", 
-    desc: "Community organizational system designed for high-scale member management and data handling.", 
-    tech: ["PHP", "Database Design", "HTML5"], 
+    desc: "Scalable community management system designed for heavy data handling and member organization.", 
+    tech: ["PHP", "Database", "HTML5"], 
     link: "https://agsamooham.com/",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800&h=500"
+    glow: "group-hover:shadow-emerald-500/20"
   },
   { 
+    id: "04",
     title: "Neoera Infotech", 
-    desc: "Corporate website for a tech solution provider, featuring modern UI and seamless user experience.", 
-    tech: ["PHP", "Responsive Design", "SEO"], 
+    desc: "A modern corporate digital ecosystem focused on high-speed performance and SEO optimization.", 
+    tech: ["PHP", "Responsive", "SEO"], 
     link: "https://neoerainfotech.com/",
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800&h=500"
+    glow: "group-hover:shadow-orange-500/20"
   }
 ];
 
@@ -38,41 +39,71 @@ const Projects = () => {
   return (
     <section id="projects" className="scroll-mt-24 px-6 max-w-6xl mx-auto w-full">
       <ScrollReveal>
-        <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-8 tracking-tight transition-colors duration-500">Selected Work.</h2>
+        <div className="flex flex-col mb-16">
+          <span className="text-blue-600 font-black tracking-[0.3em] text-xs uppercase mb-3">Portfolio</span>
+          <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tighter">
+            Selected Work<span className="text-blue-600">.</span>
+          </h2>
+        </div>
       </ScrollReveal>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {projects.map((project, idx) => (
           <ScrollReveal key={idx} delay={idx * 150} className="h-full">
-            <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-3xl overflow-hidden hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-500 flex flex-col h-full group">
+            <div className={`group relative bg-white dark:bg-[#0f172a] 
+  border border-slate-200 dark:border-white/10 
+  rounded-[2rem] p-8 md:p-10 transition-all duration-500 
+  flex flex-col h-full hover:-translate-y-2 shadow-sm 
+  ${project.glow} hover:shadow-[0_0_40px_rgba(59,130,246,0.15)]`}>
               
-              <div className="h-56 overflow-hidden relative border-b border-slate-200 dark:border-slate-700">
-                <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
-                <img 
-                  src={project.image} 
-                  alt={project.title} 
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                />
+              <div className="flex items-center gap-1.5 mb-8">
+                <div className="w-2.5 h-2.5 rounded-full bg-red-500/20 group-hover:bg-red-500 transition-colors"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-amber-500/20 group-hover:bg-amber-500 transition-colors"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/20 group-hover:bg-emerald-500 transition-colors"></div>
+                
+                {/* 🟢 NEW: Live Pulsing Status Dot */}
+                <div className="ml-auto flex items-center gap-2 px-3 py-1 bg-slate-50 dark:bg-slate-800/50 rounded-full border border-slate-100 dark:border-slate-700">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                  <span className="text-[9px] font-black text-slate-500 dark:text-slate-400 tracking-widest uppercase">Live</span>
+                </div>
               </div>
 
-              <div className="p-8 flex flex-col flex-grow">
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-500">{project.title}</h3>
-                <p className="text-slate-600 dark:text-slate-400 mb-8 flex-grow font-medium leading-relaxed transition-colors duration-500">{project.desc}</p>
+              <div className="flex flex-col flex-grow">
+                <h3 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mb-4 group-hover:text-blue-600 transition-colors duration-300 tracking-tight">
+                  {project.title}
+                </h3>
                 
-                <div className="flex flex-wrap gap-2 mb-8">
+                <p className="text-slate-600 dark:text-slate-400 mb-10 flex-grow leading-relaxed font-medium text-lg">
+                  {project.desc}
+                </p>
+                
+                <div className="flex flex-wrap gap-2 mb-10">
                   {project.tech.map(t => (
-                    <span key={t} className="px-3 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold uppercase tracking-wider rounded-lg border border-slate-200 dark:border-slate-600 transition-colors duration-500">{t}</span>
+                    <span key={t} className="px-4 py-1.5 bg-slate-50 dark:bg-slate-800/40 text-slate-500 dark:text-slate-500 text-[10px] font-black uppercase tracking-widest rounded-full border border-slate-100 dark:border-slate-800 transition-all group-hover:border-blue-500/30 group-hover:text-blue-500">
+                      {t}
+                    </span>
                   ))}
                 </div>
                 
-                <a 
-                  href={project.link} 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  className="text-blue-600 dark:text-blue-400 font-bold text-sm uppercase tracking-widest hover:text-blue-800 dark:hover:text-blue-300 transition-colors inline-flex items-center gap-2 mt-auto"
-                >
-                  View Live Site <span aria-hidden="true" className="group-hover:translate-x-1 transition-transform">&rarr;</span>
-                </a>
+                <div className="pt-8 border-t border-slate-100 dark:border-slate-800/50">
+                  <a 
+                    href={project.link} 
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="inline-flex items-center gap-4 text-slate-900 dark:text-white font-black text-sm uppercase tracking-[0.2em] group/link"
+                  >
+                    <span className="relative">
+                      Explore Case Study
+                      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover/link:w-full"></span>
+                    </span>
+                    <div className="w-10 h-10 rounded-full border border-slate-200 dark:border-slate-800 flex items-center justify-center group-hover/link:bg-blue-600 group-hover/link:border-blue-600 group-hover/link:text-white transition-all duration-500 scale-90 group-hover/link:scale-110">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                    </div>
+                  </a>
+                </div>
               </div>
             </div>
           </ScrollReveal>
