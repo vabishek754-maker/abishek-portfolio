@@ -2,10 +2,13 @@ import { useEffect, useState } from 'react';
 import { Lightbulb } from 'lucide-react';
 
 const ThemeToggle = () => {
+  // 1. We start with false (Light Mode)
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    // 2. Logic Check: Only go dark if the user EXPLICITLY saved 'dark' before.
+    // We removed the system preference check so it doesn't default to dark.
+    if (localStorage.theme === 'dark') {
       setIsDark(true);
       document.documentElement.classList.add('dark');
     } else {
@@ -28,7 +31,7 @@ const ThemeToggle = () => {
 
   return (
     <div 
-      // FIX: Changed right-20 to right-4. This pins it exactly to the right edge on mobile!
+      // FIX: Changed right-20 to right-4 for perfect mobile alignment
       className="fixed top-0 right-4 md:right-12 z-[100] flex flex-col items-center group cursor-pointer" 
       onClick={toggleTheme}
     >
