@@ -4,15 +4,15 @@ import About from './components/About.jsx';
 import Projects from './components/Projects.jsx';
 import Skills from './components/Skills.jsx';
 import Contact from './components/Contact.jsx';
-import ThemeToggle from './components/ThemeToggle.jsx'; // 👈 Import the bulb
+import ThemeToggle from './components/ThemeToggle.jsx';
+import Preloader from './components/Preloader.jsx'; // 👈 Import it here
 
 function App() {
   return (
-    // 👇 Added transition-colors and dark:bg-slate-900
-    // Make sure bg-[#f8fafc] is included before dark:bg-slate-900!
-<div className="min-h-screen w-full bg-[#f8fafc] dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-600/20 selection:text-blue-900 transition-colors duration-500">
+    <div className="min-h-screen w-full bg-[#f8fafc] dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-600/20 selection:text-blue-900 transition-colors duration-500">
       
-      <ThemeToggle /> {/* 👈 The hanging bulb! */}
+      <Preloader /> {/* 👈 Drop it right here at the very top! */}
+      <ThemeToggle /> 
       <Navbar />
       
       <main className="pb-32 flex flex-col gap-24 md:gap-32">
