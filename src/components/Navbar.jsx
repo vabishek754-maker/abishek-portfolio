@@ -33,24 +33,24 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className="fixed top-6 left-0 w-full z-50 px-6 flex justify-center">
-      {/* Added dark:bg-slate-900/90 and dark:border-slate-700 */}
-      <nav className="relative w-full max-w-4xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200 dark:border-slate-700 px-6 py-3 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex justify-between items-center transition-colors duration-500">
+    <div className="fixed top-6 left-0 w-full z-[100] px-6 flex justify-center">
+      <nav className="relative w-full max-w-4xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200/50 dark:border-slate-700/50 px-6 py-3 rounded-full shadow-xl flex justify-between items-center transition-all duration-500">
         
-        {/* Added dark:text-white */}
-        <div className="text-lg font-black tracking-tighter text-slate-900 dark:text-white">
+        {/* Logo */}
+        <div className="text-xl font-black tracking-tighter text-slate-900 dark:text-white">
           ABISHEK<span className="text-blue-600">.V</span>
         </div>
 
-        <div className="hidden md:flex gap-8 text-sm font-bold tracking-wide">
+        {/* Desktop Links */}
+        <div className="hidden md:flex gap-8 text-xs font-bold uppercase tracking-[0.15em]">
           {navLinks.map((item) => (
             <a 
               key={item} 
               href={`#${item.toLowerCase()}`} 
-              className={`transition-colors ${
+              className={`transition-all duration-300 hover:scale-110 ${
                 activeSection === item.toLowerCase() 
                   ? 'text-blue-600 dark:text-blue-400' 
-                  : 'text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300'
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               {item}
@@ -58,30 +58,32 @@ const Navbar = () => {
           ))}
         </div>
 
-        <a href="#contact" aria-label="Scroll to Contact section" className="hidden md:inline-flex px-5 py-2 bg-blue-600 text-white rounded-full text-xs font-bold uppercase tracking-wider hover:bg-blue-700 transition-colors shadow-md hover:-translate-y-0.5 transform duration-200">
+        {/* Action Button */}
+        <a href="#contact" className="hidden md:inline-flex px-6 py-2.5 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-[0.2em] hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20 active:scale-95">
           Hire Me
         </a>
 
+        {/* Mobile Toggle */}
         <button 
-          className="md:hidden text-slate-900 dark:text-white focus:outline-none" 
+          className="md:hidden p-2 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors" 
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? "Close menu" : "Open menu"}
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          {isOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
 
+        {/* Mobile Dropdown */}
         {isOpen && (
-          // Added dark mode dropdown styling
-          <div className="absolute top-16 left-0 w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 flex flex-col gap-2 md:hidden shadow-xl transition-colors duration-500">
+          <div className="absolute top-[calc(100%+12px)] left-0 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-slate-200 dark:border-slate-800 rounded-[2rem] p-4 flex flex-col gap-2 md:hidden shadow-2xl animate-in fade-in slide-in-from-top-4 duration-300">
             {navLinks.map((item) => (
               <a 
                 key={item} 
                 href={`#${item.toLowerCase()}`} 
                 onClick={() => setIsOpen(false)}
-                className={`font-bold px-4 py-3 rounded-xl transition-colors ${
+                className={`font-black text-sm uppercase tracking-widest px-6 py-4 rounded-2xl transition-all ${
                   activeSection === item.toLowerCase()
                     ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/30 dark:text-blue-400'
-                    : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700'
+                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
                 }`}
               >
                 {item}
