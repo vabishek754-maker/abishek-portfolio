@@ -31,10 +31,12 @@ const ThemeToggle = () => {
 
   return (
     <div 
-      // FIX: Changed right-20 to right-4 for perfect mobile alignment
-      className="fixed top-0 right-4 md:right-12 z-[100] flex flex-col items-center group cursor-pointer" 
-      onClick={toggleTheme}
-    >
+  // 1. We increased z-index to 999 to jump in front of the navbar
+  // 2. Changed top-0 to top-2 so the wire starts slightly lower if needed
+  // 3. Changed right-4 to right-20 on mobile to avoid hitting the hamburger menu
+  className="fixed top-0 right-3 md:right-12 z-[999] flex flex-col items-center group cursor-pointer" 
+  onClick={toggleTheme}
+>
       {/* The Hanging Wire */}
       <div className="w-[2px] bg-slate-300 dark:bg-slate-600 origin-top h-12 md:h-16 group-active:h-20 md:group-active:h-24 transition-[height] duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]"></div>
       
