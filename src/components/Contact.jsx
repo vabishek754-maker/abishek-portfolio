@@ -8,11 +8,12 @@ const Contact = () => {
     e.preventDefault();
     setStatus('sending');
 
-    // Get the data from the form
+    // Get the data from the form, INCLUDING the hidden bot_check field
     const formData = {
       name: e.target.name.value,
       email: e.target.email.value,
       message: e.target.message.value,
+      bot_check: e.target.bot_check.value, // 🍯 Grabbing the honeypot value
     };
 
     try {
@@ -67,19 +68,27 @@ const Contact = () => {
 
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 md:p-8 transition-colors duration-500 border border-transparent dark:border-slate-700">
               <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+                
+                {/* 🍯 THE HONEYPOT TRAP */}
+                {/* Invisible to humans, prevents tabbing, absolutely positioned so it breaks no layouts */}
+                <input 
+                  type="text" 
+                  name="bot_check" 
+                  tabIndex="-1" 
+                  autoComplete="off" 
+                  className="hidden opacity-0 absolute -z-50" 
+                />
+
                 <div>
                   <label htmlFor="name" className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1 transition-colors duration-500">Name</label>
-                  {/* ADDED name="name" */}
                   <input name="name" type="text" id="name" required className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-300 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900 transition-all duration-500" placeholder="John Doe" />
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1 transition-colors duration-500">Email</label>
-                  {/* ADDED name="email" */}
                   <input name="email" type="email" id="email" required className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-300 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900 transition-all duration-500" placeholder="john@company.com" />
                 </div>
                 <div>
                   <label htmlFor="message" className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1 transition-colors duration-500">Message</label>
-                  {/* ADDED name="message" */}
                   <textarea name="message" id="message" rows="4" required className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-300 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900 transition-all duration-500 resize-none" placeholder="Tell me about your project..."></textarea>
                 </div>
                 

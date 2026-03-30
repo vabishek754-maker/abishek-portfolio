@@ -1,12 +1,24 @@
 import nodemailer from 'nodemailer';
 
 export default async function handler(req, res) {
+  // Only allow POST requests
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { name, email, message } = req.body;
+  // 1. Extract the honeypot field along with the real ones
+  const { name, email, message, bot_check } = req.body;
 
+  // 🛑 THE BOUNCER LOGIC (Honeypot Trap)
+  // If the hidden 'bot_check' field has ANY text in it, it's a bot.
+  if (bot_check) {
+    console.log("🛑 Spam Bot Blocked!");
+    // We return a "200 OK" success message so the bot thinks it succeeded.
+    // This prevents the bot from continuously trying to bypass our security.
+    return res.status(200).json({ success: true, message: "Bot trapped" });
+  }
+
+  // 2. Set up the mail engine
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -16,7 +28,7 @@ export default async function handler(req, res) {
   });
 
   try {
-    // 1. Send the inquiry to YOUR inbox
+    // 3. Send the inquiry to YOUR inbox
     await transporter.sendMail({
       from: `"${name}" <${email}>`,
       to: process.env.EMAIL_USER, // Sends to your email
@@ -34,7 +46,7 @@ export default async function handler(req, res) {
       `,
     });
 
-    // 2. Send the Auto-Reply back to the CLIENT
+    // 4. Send the Auto-Reply back to the CLIENT
     await transporter.sendMail({
       from: `"Abishek V" <${process.env.EMAIL_USER}>`, // Shows your name in their inbox
       to: email, // Sends to the email the user typed in the form
