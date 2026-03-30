@@ -1,6 +1,42 @@
+import { useState } from 'react';
 import ScrollReveal from './ScrollReveal';
 
 const Contact = () => {
+  const [status, setStatus] = useState('idle'); // 'idle' | 'sending' | 'success' | 'error'
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus('sending');
+
+    // Get the data from the form
+    const formData = {
+      name: e.target.name.value,
+      email: e.target.email.value,
+      message: e.target.message.value,
+    };
+
+    try {
+      // Send the data to your internal Vercel API
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        e.target.reset(); // Clear the form
+        setTimeout(() => setStatus('idle'), 5000); // Reset button after 5 seconds
+      } else {
+        setStatus('error');
+        setTimeout(() => setStatus('idle'), 3000);
+      }
+    } catch (err) {
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 3000);
+    }
+  };
+
   return (
     <section id="contact" className="scroll-mt-24 px-6 max-w-6xl mx-auto w-full">
       <ScrollReveal>
@@ -30,24 +66,37 @@ const Contact = () => {
             </div>
 
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 md:p-8 transition-colors duration-500 border border-transparent dark:border-slate-700">
-              <form className="flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
+              <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                 <div>
                   <label htmlFor="name" className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1 transition-colors duration-500">Name</label>
-                  {/* FIX: Added placeholder-slate-400 dark:placeholder-slate-300 */}
-                  <input type="text" id="name" className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-300 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900 transition-all duration-500" placeholder="John Doe" />
+                  {/* ADDED name="name" */}
+                  <input name="name" type="text" id="name" required className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-300 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900 transition-all duration-500" placeholder="John Doe" />
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1 transition-colors duration-500">Email</label>
-                  {/* FIX: Added placeholder-slate-400 dark:placeholder-slate-300 */}
-                  <input type="email" id="email" className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-300 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900 transition-all duration-500" placeholder="john@company.com" />
+                  {/* ADDED name="email" */}
+                  <input name="email" type="email" id="email" required className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-300 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900 transition-all duration-500" placeholder="john@company.com" />
                 </div>
                 <div>
                   <label htmlFor="message" className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1 transition-colors duration-500">Message</label>
-                  {/* FIX: Added placeholder-slate-400 dark:placeholder-slate-300 */}
-                  <textarea id="message" rows="4" className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-300 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900 transition-all duration-500 resize-none" placeholder="Tell me about your project..."></textarea>
+                  {/* ADDED name="message" */}
+                  <textarea name="message" id="message" rows="4" required className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-300 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900 transition-all duration-500 resize-none" placeholder="Tell me about your project..."></textarea>
                 </div>
-                <button type="submit" className="w-full py-4 bg-blue-600 text-white font-bold rounded-lg mt-2 hover:bg-blue-700 transition-colors shadow-md">
-                  Send Message
+                
+                <button 
+                  type="submit" 
+                  disabled={status === 'sending'}
+                  className={`w-full py-4 text-white font-bold rounded-lg mt-2 transition-colors shadow-md ${
+                    status === 'sending' ? 'bg-slate-400 cursor-not-allowed' : 
+                    status === 'success' ? 'bg-green-500' :
+                    status === 'error' ? 'bg-red-500' :
+                    'bg-blue-600 hover:bg-blue-700'
+                  }`}
+                >
+                  {status === 'sending' ? 'Sending...' : 
+                   status === 'success' ? 'Message Sent! ✓' :
+                   status === 'error' ? 'Error. Try Again' : 
+                   'Send Message'}
                 </button>
               </form>
             </div>
