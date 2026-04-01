@@ -27,11 +27,11 @@ const projects = [
   },
   { 
     id: "04",
-    title: "Neoera Infotech", 
-    desc: "A modern corporate digital ecosystem focused on high-speed performance and SEO optimization.", 
-    tech: ["PHP", "Responsive", "SEO"], 
-    link: "https://neoerainfotech.com/",
-    glow: "group-hover:shadow-orange-500/20"
+    title: "P2RNet Backend", 
+    desc: "Architected a scalable, containerized backend infrastructure for AI-driven automation pipelines using Docker, n8n, and Python.", 
+    tech: ["Docker", "n8n", "Python", "AI Automation"], 
+    link: "https://n8n.p2rnet.com",
+    glow: "group-hover:shadow-cyan-500/20"
   }
 ];
 
