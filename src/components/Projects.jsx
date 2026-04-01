@@ -30,7 +30,7 @@ const projects = [
     title: "P2RNet Backend", 
     desc: "Architected a scalable, containerized backend infrastructure for AI-driven automation pipelines using Docker, n8n, and Python.", 
     tech: ["Docker", "n8n", "Python", "AI Automation"], 
-    link: "https://n8n.p2rnet.com",
+    // Notice: No link here anymore!
     glow: "group-hover:shadow-cyan-500/20"
   }
 ];
@@ -61,13 +61,22 @@ const Projects = () => {
                 <div className="w-2.5 h-2.5 rounded-full bg-amber-500/20 group-hover:bg-amber-500 transition-colors"></div>
                 <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/20 group-hover:bg-emerald-500 transition-colors"></div>
                 
-                {/* 🟢 NEW: Live Pulsing Status Dot */}
+                {/* Status Dot: Live for linked projects, Offline/Private for unlinked */}
                 <div className="ml-auto flex items-center gap-2 px-3 py-1 bg-slate-50 dark:bg-slate-800/50 rounded-full border border-slate-100 dark:border-slate-700">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                  </span>
-                  <span className="text-[9px] font-black text-slate-500 dark:text-slate-400 tracking-widest uppercase">Live</span>
+                  {project.link ? (
+                    <>
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                      </span>
+                      <span className="text-[9px] font-black text-slate-500 dark:text-slate-400 tracking-widest uppercase">Live</span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-slate-400 dark:bg-slate-500"></span>
+                      <span className="text-[9px] font-black text-slate-500 dark:text-slate-400 tracking-widest uppercase">Deployed</span>
+                    </>
+                  )}
                 </div>
               </div>
 
@@ -89,20 +98,31 @@ const Projects = () => {
                 </div>
                 
                 <div className="pt-8 border-t border-slate-100 dark:border-slate-800/50">
-                  <a 
-                    href={project.link} 
-                    target="_blank" 
-                    rel="noreferrer" 
-                    className="inline-flex items-center gap-4 text-slate-900 dark:text-white font-black text-sm uppercase tracking-[0.2em] group/link"
-                  >
-                    <span className="relative">
-                      Explore Case Study
-                      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover/link:w-full"></span>
-                    </span>
-                    <div className="w-10 h-10 rounded-full border border-slate-200 dark:border-slate-800 flex items-center justify-center group-hover/link:bg-blue-600 group-hover/link:border-blue-600 group-hover/link:text-white transition-all duration-500 scale-90 group-hover/link:scale-110">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                  {/* CONDITIONAL RENDERING: If there is a link, show the button. If not, show Private Status */}
+                  {project.link ? (
+                    <a 
+                      href={project.link} 
+                      target="_blank" 
+                      rel="noreferrer" 
+                      className="inline-flex items-center gap-4 text-slate-900 dark:text-white font-black text-sm uppercase tracking-[0.2em] group/link"
+                    >
+                      <span className="relative">
+                        View Live System
+                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover/link:w-full"></span>
+                      </span>
+                      <div className="w-10 h-10 rounded-full border border-slate-200 dark:border-slate-800 flex items-center justify-center group-hover/link:bg-blue-600 group-hover/link:border-blue-600 group-hover/link:text-white transition-all duration-500 scale-90 group-hover/link:scale-110">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                      </div>
+                    </a>
+                  ) : (
+                    <div className="inline-flex items-center gap-4 text-slate-400 dark:text-slate-500 font-black text-sm uppercase tracking-[0.2em] cursor-not-allowed">
+                      <span>Internal Architecture</span>
+                      <div className="w-10 h-10 rounded-full border border-slate-200 dark:border-slate-800 flex items-center justify-center bg-slate-50 dark:bg-slate-800/30">
+                        {/* Lock Icon */}
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                      </div>
                     </div>
-                  </a>
+                  )}
                 </div>
               </div>
             </div>
