@@ -57,7 +57,7 @@ const Contact = () => {
               <div className="space-y-4">
                 <div className="flex items-center gap-4 text-white">
                   <div className="w-10 h-10 rounded-full bg-slate-800 dark:bg-slate-900 flex items-center justify-center border border-slate-700 dark:border-slate-800 transition-colors duration-500">📍</div>
-                  <span className="font-medium">Chennai, India</span>
+                  <span className="font-medium">Coimbatore, India</span>
                 </div>
                 <div className="flex items-center gap-4 text-white">
                   <div className="w-10 h-10 rounded-full bg-slate-800 dark:bg-slate-900 flex items-center justify-center border border-slate-700 dark:border-slate-800 transition-colors duration-500">✉️</div>
