@@ -28,9 +28,14 @@ const projects = [
   { 
     id: "04",
     title: "P2RNet Backend", 
-    desc: "Architected a scalable, containerized backend infrastructure for AI-driven automation pipelines using Docker, n8n, and Python.", 
-    tech: ["Docker", "n8n", "Python", "AI Automation"], 
-    // Notice: No link here anymore!
+    desc: "Architected a scalable, containerized backend infrastructure for AI-driven automation pipelines.", 
+    // 🔥 NEW: IMPACT RESULTS ARRAY
+    results: [
+      "Fixed routing issues & ensured stable service communication",
+      "Verified API workflows & webhook reliability",
+      "Delivered production-ready containerized backend"
+    ],
+    tech: ["Docker", "n8n", "Python", "Traefik"], 
     glow: "group-hover:shadow-cyan-500/20"
   }
 ];
@@ -61,7 +66,6 @@ const Projects = () => {
                 <div className="w-2.5 h-2.5 rounded-full bg-amber-500/20 group-hover:bg-amber-500 transition-colors"></div>
                 <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/20 group-hover:bg-emerald-500 transition-colors"></div>
                 
-                {/* Status Dot: Live for linked projects, Offline/Private for unlinked */}
                 <div className="ml-auto flex items-center gap-2 px-3 py-1 bg-slate-50 dark:bg-slate-800/50 rounded-full border border-slate-100 dark:border-slate-700">
                   {project.link ? (
                     <>
@@ -85,11 +89,23 @@ const Projects = () => {
                   {project.title}
                 </h3>
                 
-                <p className="text-slate-600 dark:text-slate-400 mb-10 flex-grow leading-relaxed font-medium text-lg">
+                <p className="text-slate-600 dark:text-slate-400 mb-6 flex-grow leading-relaxed font-medium text-lg">
                   {project.desc}
                 </p>
+
+                {/* 🔥 NEW: RENDERING THE IMPACT RESULTS WITH CHECKMARKS */}
+                {project.results && (
+                  <ul className="mb-8 space-y-3">
+                    {project.results.map((result, rIdx) => (
+                      <li key={rIdx} className="flex items-start gap-3 text-slate-700 dark:text-slate-300 font-medium text-sm">
+                        <svg className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path></svg>
+                        {result}
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 
-                <div className="flex flex-wrap gap-2 mb-10">
+                <div className="flex flex-wrap gap-2 mb-10 mt-auto">
                   {project.tech.map(t => (
                     <span key={t} className="px-4 py-1.5 bg-slate-50 dark:bg-slate-800/40 text-slate-500 dark:text-slate-500 text-[10px] font-black uppercase tracking-widest rounded-full border border-slate-100 dark:border-slate-800 transition-all group-hover:border-blue-500/30 group-hover:text-blue-500">
                       {t}
@@ -98,18 +114,9 @@ const Projects = () => {
                 </div>
                 
                 <div className="pt-8 border-t border-slate-100 dark:border-slate-800/50">
-                  {/* CONDITIONAL RENDERING: If there is a link, show the button. If not, show Private Status */}
                   {project.link ? (
-                    <a 
-                      href={project.link} 
-                      target="_blank" 
-                      rel="noreferrer" 
-                      className="inline-flex items-center gap-4 text-slate-900 dark:text-white font-black text-sm uppercase tracking-[0.2em] group/link"
-                    >
-                      <span className="relative">
-                        View Live System
-                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover/link:w-full"></span>
-                      </span>
+                    <a href={project.link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-4 text-slate-900 dark:text-white font-black text-sm uppercase tracking-[0.2em] group/link">
+                      <span className="relative">View Live System<span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover/link:w-full"></span></span>
                       <div className="w-10 h-10 rounded-full border border-slate-200 dark:border-slate-800 flex items-center justify-center group-hover/link:bg-blue-600 group-hover/link:border-blue-600 group-hover/link:text-white transition-all duration-500 scale-90 group-hover/link:scale-110">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
                       </div>
@@ -118,7 +125,6 @@ const Projects = () => {
                     <div className="inline-flex items-center gap-4 text-slate-400 dark:text-slate-500 font-black text-sm uppercase tracking-[0.2em] cursor-not-allowed">
                       <span>Internal Architecture</span>
                       <div className="w-10 h-10 rounded-full border border-slate-200 dark:border-slate-800 flex items-center justify-center bg-slate-50 dark:bg-slate-800/30">
-                        {/* Lock Icon */}
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                       </div>
                     </div>
